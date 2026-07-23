@@ -1,52 +1,60 @@
 class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1.length > nums2.length) {
-            return findMedianSortedArrays(nums2, nums1);
+    List<List<String>> result = new ArrayList<>();
+
+    public List<List<String>> solveNQueens(int n) {
+        char[][] board = new char[n][n];
+
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(board[i], '.');
         }
 
-        int m = nums1.length;
-        int n = nums2.length;
+        Set<Integer> cols = new HashSet<>();
+        Set<Integer> diag1 = new HashSet<>(); // row - col
+        Set<Integer> diag2 = new HashSet<>(); // row + col
 
-        int left = 0;
-        int right = m;
+        backtrack(0, n, board, cols, diag1, diag2);
+        return result;
+    }
 
-        while (left <= right) {
+    private void backtrack(int row, int n, char[][] board,
+                           Set<Integer> cols,
+                           Set<Integer> diag1,
+                           Set<Integer> diag2) {
 
-            int partitionX = (left + right) / 2;
-            int partitionY = (m + n + 1) / 2 - partitionX;
+        if (row == n) {
+            result.add(construct(board));
+            return;
+        }
 
-            int maxLeftX = (partitionX == 0)
-                    ? Integer.MIN_VALUE
-                    : nums1[partitionX - 1];
+        for (int col = 0; col < n; col++) {
 
-            int minRightX = (partitionX == m)
-                    ? Integer.MAX_VALUE
-                    : nums1[partitionX];
-
-            int maxLeftY = (partitionY == 0)
-                    ? Integer.MIN_VALUE
-                    : nums2[partitionY - 1];
-
-            int minRightY = (partitionY == n)
-                    ? Integer.MAX_VALUE
-                    : nums2[partitionY];
-
-            if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
-
-                if ((m + n) % 2 == 0) {
-                    return (Math.max(maxLeftX, maxLeftY)
-                            + Math.min(minRightX, minRightY)) / 2.0;
-                } else {
-                    return Math.max(maxLeftX, maxLeftY);
-                }
-
-            } else if (maxLeftX > minRightY) {
-                right = partitionX - 1;
-            } else {
-                left = partitionX + 1;
+            if (cols.contains(col) ||
+                diag1.contains(row - col) ||
+                diag2.contains(row + col)) {
+                continue;
             }
+
+            board[row][col] = 'Q';
+            cols.add(col);
+            diag1.add(row - col);
+            diag2.add(row + col);
+
+            backtrack(row + 1, n, board, cols, diag1, diag2);
+
+            board[row][col] = '.';
+            cols.remove(col);
+            diag1.remove(row - col);
+            diag2.remove(row + col);
+        }
+    }
+
+    private List<String> construct(char[][] board) {
+        List<String> temp = new ArrayList<>();
+
+        for (char[] row : board) {
+            temp.add(new String(row));
         }
 
-        throw new IllegalArgumentException("Input arrays are not sorted.");
+        return temp;
     }
 }
