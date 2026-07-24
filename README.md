@@ -53,8 +53,4 @@ class Solution {
 
         for (char[] row : board) {
             temp.add(new String(row));
-        }
-
-        return temp;
-    }
-}
+ 
