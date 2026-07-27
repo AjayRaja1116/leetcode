@@ -50,7 +50,3 @@ class Solution {
 
     private List<String> construct(char[][] board) {
         List<String> temp = new ArrayList<>();
-
-        for (char[] row : board) {
-            temp.add(new String(row));
- 
