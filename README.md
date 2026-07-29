@@ -1,4 +1,4 @@
-class Solution {
+[class Solution {
 
     public String smallestPalindrome(String s) {
         int len = s.length();
@@ -14,3 +14,4 @@ class Solution {
         return new String(chars);
     }
 }
+](https://claude.ai/chat/ebf11a20-f95a-463c-b62e-3aa35b938d91?onboarding=1)
