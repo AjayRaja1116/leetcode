@@ -1,16 +1,8 @@
-[class Solution {
-
-    public String smallestPalindrome(String s) {
-        int len = s.length();
-        int partition = len / 2;
-
-        char[] chars = s.toCharArray();
-        Arrays.sort(chars, 0, partition);
-
-        for (int i = 0; i < partition; i++) {
-            chars[len - 1 - i] = chars[i];
+public int[] findPositive(int[] nums) {
+    for (int num : nums) {
+        if (num > 0) {
+            return new int[]{num};
         }
-
-        return new String(chars);
     }
+    return new int[]{};   // No positive number found
 }
