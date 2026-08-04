@@ -1,23 +1,26 @@
+import java.util.*;
+
 class Solution {
-    public String stoneGameIII(int[] stoneValue) {
-        int n = stoneValue.length;
-        int[] dp = new int[n + 1];
+    public List<Integer> findMissingElements(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
 
-        for (int i = n - 1; i >= 0; i--) {
-            dp[i] = Integer.MIN_VALUE;
-            int sum = 0;
+        HashSet<Integer> set = new HashSet<>();
 
-            for (int j = i; j < Math.min(i + 3, n); j++) {
-                sum += stoneValue[j];
-                dp[i] = Math.max(dp[i], sum - dp[j + 1]);
+        for (int num : nums) {
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+            set.add(num);
+        }
+
+        List<Integer> ans = new ArrayList<>();
+
+        for (int i = min + 1; i < max; i++) {
+            if (!set.contains(i)) {
+                ans.add(i);
             }
         }
 
-        if (dp[0] > 0)
-            return "Alice";
-        else if (dp[0] < 0)
-            return "Bob";
-        else
-            return "Tie";
+        return ans;
     }
 }
