@@ -1,26 +1,24 @@
-import java.util.*;
+import java.util.HashSet;
 
 class Solution {
-    public List<Integer> findMissingElements(int[] nums) {
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<String> set = new HashSet<>();
 
-        HashSet<Integer> set = new HashSet<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
 
-        for (int num : nums) {
-            min = Math.min(min, num);
-            max = Math.max(max, num);
-            set.add(num);
-        }
+                char num = board[i][j];
 
-        List<Integer> ans = new ArrayList<>();
+                if (num == '.') continue;
 
-        for (int i = min + 1; i < max; i++) {
-            if (!set.contains(i)) {
-                ans.add(i);
+                if (!set.add(num + " in row " + i) ||
+                    !set.add(num + " in col " + j) ||
+                    !set.add(num + " in box " + (i / 3) + "-" + (j / 3))) {
+                    return false;
+                }
             }
         }
 
-        return ans;
+        return true;
     }
 }
