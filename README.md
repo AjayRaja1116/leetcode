@@ -10,11 +10,6 @@ class Solution {
                 char num = board[i][j];
 
                 if (num == '.') continue;
-
-                if (!set.add(num + " in row " + i) ||
-                    !set.add(num + " in col " + j) ||
-                    !set.add(num + " in box " + (i / 3) + "-" + (j / 3))) {
-                    return false;
                 }
             }
         }
