@@ -1,18 +1,17 @@
 import java.util.*;
+
 class Solution {
     public int missingNumber(int[] nums) {
-        HashSet<Integer> map=new HashSet<>();
-        for(int num:nums)
-        {
-            map.add(num);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, 1);
         }
-        for(int i=0;i<=nums.length;i++)
-        {
-            if(!map.contains(i))
-            {
+        for (int i = 0; i <= nums.length; i++) {
+            if (!map.containsKey(i)) {
                 return i;
             }
         }
+
         return -1;
     }
 }
