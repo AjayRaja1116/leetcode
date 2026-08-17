@@ -1,54 +1,49 @@
 class Solution {
+
+    int[][] f;
+
     public int stoneGameV(int[] stoneValue) {
         int n = stoneValue.length;
+        f = new int[n][n];
+        return dfs(stoneValue, 0, n - 1);
+    }
 
-        int[] prefix = new int[n + 1];
-
-        for (int i = 0; i < n; i++) {
-            prefix[i + 1] = prefix[i] + stoneValue[i];
+    public int dfs(int[] stoneValue, int left, int right) {
+        if (left == right) {
+            return 0;
+        }
+        if (f[left][right] != 0) {
+            return f[left][right];
         }
 
-        int[][] dp = new int[n][n];
-
-        for (int len = 2; len <= n; len++) {
-
-            for (int i = 0; i + len <= n; i++) {
-
-                int j = i + len - 1;
-
-                for (int k = i; k < j; k++) {
-
-                    int leftSum = prefix[k + 1] - prefix[i];
-                    int rightSum = prefix[j + 1] - prefix[k + 1];
-
-                    if (leftSum < rightSum) {
-
-                        dp[i][j] = Math.max(
-                            dp[i][j],
-                            leftSum + dp[i][k]
-                        );
-
-                    } else if (leftSum > rightSum) {
-
-                        dp[i][j] = Math.max(
-                            dp[i][j],
-                            rightSum + dp[k + 1][j]
-                        );
-
-                    } else {
-
-                        dp[i][j] = Math.max(
-                            dp[i][j],
-                            leftSum + Math.max(
-                                dp[i][k],
-                                dp[k + 1][j]
-                            )
-                        );
-                    }
-                }
+        int sum = 0;
+        for (int i = left; i <= right; ++i) {
+            sum += stoneValue[i];
+        }
+        int suml = 0;
+        for (int i = left; i < right; ++i) {
+            suml += stoneValue[i];
+            int sumr = sum - suml;
+            if (suml < sumr) {
+                f[left][right] = Math.max(
+                    f[left][right],
+                    dfs(stoneValue, left, i) + suml
+                );
+            } else if (suml > sumr) {
+                f[left][right] = Math.max(
+                    f[left][right],
+                    dfs(stoneValue, i + 1, right) + sumr
+                );
+            } else {
+                f[left][right] = Math.max(
+                    f[left][right],
+                    Math.max(
+                        dfs(stoneValue, left, i),
+                        dfs(stoneValue, i + 1, right)
+                    ) + suml
+                );
             }
         }
-
-        return dp[0][n - 1];
+        return f[left][right];
     }
 }
