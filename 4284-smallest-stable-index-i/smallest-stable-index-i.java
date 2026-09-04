@@ -4,11 +4,11 @@ class Solution {
         {
             int max=nums[i];
             int min=nums[i];
-            for(int j=0;j<i;j++)
+            for(int j=0;j<=i;j++)
             {
                 max=Math.max(max,nums[j]);
             }
-            for(int j=i+1;j<nums.length;j++)
+            for(int j=i;j<nums.length;j++)
             {
                 min=Math.min(min,nums[j]);
             }
