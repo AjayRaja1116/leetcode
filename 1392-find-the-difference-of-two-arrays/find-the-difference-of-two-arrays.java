@@ -27,6 +27,9 @@ class Solution {
                 second.add(num);
             }
         }
-        return Arrays.asList(first,second);
+        List<List<Integer>> result=new ArrayList<>();
+        result.add(first);
+        result.add(second);
+        return result;
     }
 }
