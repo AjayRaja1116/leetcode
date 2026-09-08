@@ -4,11 +4,6 @@ class Solution {
         {
             return 0;
         }
-        int res=0;
-        for(int i=1000;i<=n;i++)
-        {
-            res++;
-        }
-        return res;
+        return n-999;
     }
 }
