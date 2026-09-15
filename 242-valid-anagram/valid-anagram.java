@@ -10,6 +10,3 @@ class Solution {
         return true;
     }
 }
-
-// s = "car"
-// t = "rac"
