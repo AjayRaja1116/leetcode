@@ -1,17 +1,12 @@
-import java.util.*;
-
 class Solution {
     public int missingNumber(int[] nums) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) {
-            map.put(num, 1);
+        int n = nums.length ;
+        int sum =  n * (n + 1) / 2 ;
+        int x=0 ;
+        for (int i =0 ; i < nums.length ; i++ ){
+            x = x + nums[i];
         }
-        for (int i = 0; i <= nums.length; i++) {
-            if (!map.containsKey(i)) {
-                return i;
-            }
-        }
-
-        return -1;
+        int ans = sum - x ;
+        return ans ;
     }
 }
