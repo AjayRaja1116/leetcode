@@ -1,12 +1,17 @@
+import java.util.HashSet;
+import java.util.Set;
 class Solution {
     public int missingNumber(int[] nums) {
-        int n = nums.length ;
-        int sum =  n * (n + 1) / 2 ;
-        int x=0 ;
-        for (int i =0 ; i < nums.length ; i++ ){
-            x = x + nums[i];
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
         }
-        int ans = sum - x ;
-        return ans ;
+        for (int i = 0; i <= nums.length; i++) {
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
